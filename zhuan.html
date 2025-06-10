@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">卓越建筑砖厂 - 打造坚实未来</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Noto Sans Myanmar for Burmese script and Inter for English/Numbers -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Warm, subtle gradient for overall body background */
+            background: linear-gradient(to bottom, #FFF8F0, #FFEFE0); /* Soft cream to light peach gradient */
+            font-family: 'Noto Sans Myanmar', 'Inter', sans-serif; /* Prioritize Noto Sans Myanmar for Burmese */
+            scroll-behavior: smooth;
+            color: #334155; /* Darker text for readability on light background */
+        }
+
+        /* Custom styles for smoother transitions and hover effects */
+        .transition-all-300 {
+            transition-property: all;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-scale-103:hover {
+            transform: scale(1.03) translateY(-5px); /* Lift and scale slightly */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Lighter shadow on hover for light theme */
+        }
+
+        /* Keyframes for fade-in and slide-up animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation classes (initially hidden) */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Specific animation for Hero Section elements */
+        .hero-title-anim { animation: fadeIn 1s ease-out forwards; }
+        .hero-text-anim { animation: fadeIn 1s ease-out 0.3s forwards; opacity: 0; }
+        .hero-button-anim { animation: fadeIn 1s ease-out 0.6s forwards; opacity: 0; }
+
+        /* Parallax background for Hero Section */
+        .hero-parallax-bg {
+            position: absolute;
+            inset: 0;
+            /* Using the temple image */
+            background-image: url('https://th.bing.com/th/id/OIP.bRXOR9nuqA_MmvqNXV759QAAAA?rs=1&pid=ImgDetMain');
+            background-size: cover;
+            background-position: center;
+            will-change: transform; /* Optimize for smooth animation */
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            color: #334155; /* Dark text on light modal background */
+            max-height: 90vh; /* Max height to allow scrolling if content is long */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-lg py-4 sticky top-0 z-50 border-b border-gray-200">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Company Logo with modern architectural color -->
+            <a href="#home" class="text-3xl font-bold text-amber-700 hover:text-amber-600 transition-all-300 rounded-lg p-2" data-i18n="company_logo">卓越建材</a>
+            <!-- Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-amber-600 font-medium transition-all-300 rounded-lg p-2" data-i18n="nav_home">首页</a>
+                <a href="#about" class="text-gray-700 hover:text-amber-600 font-medium transition-all-300 rounded-lg p-2" data-i18n="nav_about">关于我们</a>
+                <a href="#products" class="text-gray-700 hover:text-amber-600 font-medium transition-all-300 rounded-lg p-2" data-i18n="nav_products">产品中心</a>
+                <a href="#intelligent-advisor" class="text-gray-700 hover:text-amber-600 font-medium transition-all-300 rounded-lg p-2" data-i18n="nav_advisor">智能顾问</a>
+                <a href="#projects" class="text-gray-700 hover:text-amber-600 font-medium transition-all-300 rounded-lg p-2" data-i18n="nav_projects">项目案例</a>
+                <a href="#contact" class="text-gray-700 hover:text-amber-600 font-medium transition-all-300 rounded-lg p-2" data-i18n="nav_contact">联系我们</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700 hover:text-amber-600 focus:outline-none" aria-label="Toggle navigation">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Navigation (hidden by default) -->
+        <div id="mobile-menu" class="md:hidden bg-gray-100 mt-2 pb-4 border-t border-gray-200 hidden">
+            <nav class="flex flex-col items-center space-y-2">
+                <a href="#home" class="block text-gray-700 hover:text-amber-600 font-medium py-2 px-4 rounded-lg" data-i18n="nav_home">首页</a>
+                <a href="#about" class="block text-gray-700 hover:text-amber-600 font-medium py-2 px-4 rounded-lg" data-i18n="nav_about">关于我们</a>
+                <a href="#products" class="block text-gray-700 hover:text-amber-600 font-medium py-2 px-4 rounded-lg" data-i18n="nav_products">产品中心</a>
+                <a href="#intelligent-advisor" class="block text-gray-700 hover:text-amber-600 font-medium py-2 px-4 rounded-lg" data-i18n="nav_advisor">智能顾问</a>
+                <a href="#projects" class="block text-gray-700 hover:text-amber-600 font-medium py-2 px-4 rounded-lg" data-i18n="nav_projects">项目案例</a>
+                <a href="#contact" class="block text-gray-700 hover:text-amber-600 font-medium py-2 px-4 rounded-lg" data-i18n="nav_contact">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-br from-amber-700 to-amber-900 text-white py-20 md:py-32 overflow-hidden">
+        <!-- Image of Ananda Temple, Bagan, Myanmar -->
+        <div class="hero-parallax-bg" style="background-image: url('https://th.bing.com/th/id/OIP.bRXOR9nuqA_MmvqNXV759QAAAA?rs=1&pid=ImgDetMain');"></div>
+        <!-- Overlay for text readability and depth, adjusted to amber tone -->
+        <div class="absolute inset-0 bg-amber-900 opacity-40"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 hero-title-anim text-white" data-i18n="hero_title">卓越品质，筑就坚实未来</h1>
+            <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto text-amber-100 opacity-90 hero-text-anim" data-i18n="hero_text">作为领先的建筑砖制造商，我们致力于提供高品质、环保的建筑材料，为您的项目奠定坚实基础。</p>
+            <a href="#products" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-full shadow-xl text-lg inline-block transition-all-300 hover-scale-103 hero-button-anim" data-i18n="hero_button">探索我们的产品</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 md:py-24 bg-white animate-on-scroll border-b border-gray-200">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <!-- [Image of Modern Factory] -->
+                <img src="https://th.bing.com/th/id/OIP.FPklQnvZIU06k2kFSINMUgHaE7?w=281&h=186&c=7&r=0&o=7&pid=1.7&rm=3" alt="现代工厂" class="rounded-xl shadow-lg w-full transition-all-300 hover-scale-103" onerror="this.onerror=null;this.src='https://placehold.co/700x500/A0AEC0/FFFFFF/png?text=Modern+Factory+Placeholder';">
+            </div>
+            <div class="md:w-1/2 text-left text-gray-700">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6 border-b-4 border-amber-600 pb-2 inline-block" data-i18n="about_title">关于我们</h2>
+                <p class="leading-relaxed mb-4 text-lg" data-i18n="about_p1">卓越建材有限公司成立于2025年，是一家集研发、生产、销售为一体的现代化建筑砖企业。我们始终秉承“质量为本，客户至上”的经营理念，致力于为**全缅甸客户**提供卓越的建筑材料解决方案。</p>
+                <p class="leading-relaxed text-lg" data-i18n="about_p2">我们拥有先进的生产设备和专业的研发团队，产品涵盖多种规格和类型，广泛应用于住宅、商业、工业等各类建筑项目。我们深知每一块砖都承载着建筑的未来，因此我们严格把控从原材料采购到生产工艺的每一个环节，确保每一块砖都达到行业最高标准。我们主要服务于**缅甸北部地区**。</p>
+                <ul class="mt-6 space-y-3 text-gray-700 text-lg">
+                    <li class="flex items-center"><svg class="w-6 h-6 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span data-i18n="about_feature1">领先的生产技术</span></li>
+                    <li class="flex items-center"><svg class="w-6 h-6 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span data-i18n="about_feature2">严格的质量控制</span></li>
+                    <li class="flex items-center"><svg class="w-6 h-6 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span data-i18n="about_feature3">专业的客户服务</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16 md:py-24 bg-gray-50 animate-on-scroll border-b border-gray-200">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12 border-b-4 border-amber-600 pb-2 inline-block" data-i18n="products_title">产品中心</h2>
+            <p class="text-lg text-gray-700 mb-12 max-w-3xl mx-auto" data-i18n="products_intro">我们提供多种类型和规格的优质建筑砖，以满足您多样化的建筑需求。所有产品均经过严格测试，确保卓越的性能和持久耐用性。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product Card 1: Hydraulic Solid Standard Bricks -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 液压实心标砖] -->
+                    <img src="https://th.bing.com/th/id/OIP.bkgP_5lKi6U6wHgeo2ZlcwHaHF?w=188&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="液压实心标砖" class="w-full h-48 object-cover rounded-md mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/6B7280/FFFFFF/png?text=Solid+Bricks+Placeholder';">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="product1_title">液压实心标砖</h3>
+                    <p class="text-gray-600 text-center mb-4" data-i18n="product1_desc">传统经典，强度高，适用于承重墙体和外墙装饰，提供优异的隔热和隔音效果。</p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-full inline-block transition-all-300 open-modal-btn" data-product-id="product1" data-i18n="product_details">了解详情</button>
+                </div>
+                <!-- Product Card 2: Eco-friendly Hollow Bricks -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 环保空心砖] -->
+                    <img src="https://th.bing.com/th/id/OIP.6EheS6xAb6R5wHgF0LkEQHaHi?rs=1&pid=ImgDetMain" alt="环保空心砖" class="w-full h-48 object-cover rounded-md mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/4B5563/FFFFFF/png?text=Hollow+Bricks+Placeholder';">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="product2_title">环保空心砖</h3>
+                    <p class="text-gray-600 text-center mb-4" data-i18n="product2_desc">轻质高强，节能环保，有效降低建筑自重，提高施工效率，是现代建筑的理想选择。</p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-full inline-block transition-all-300 open-modal-btn" data-product-id="product2" data-i18n="product_details">了解详情</button>
+                </div>
+                <!-- Product Card 3: Decorative Face Bricks -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 装饰面砖] -->
+                    <img src="https://th.bing.com/th/id/R.72490f0b9d75a00f2a5b40e6527b3486?rik=4jbYxAXRcLJiFQ&riu=http%3a%2f%2fimage.guojj.com%2fexhibition%2f23%2f1%2f1cf712e1d302b730ae8f5863ae72a3ee.jpg&ehk=rsFeqcAtIoTqpAAEM1MZQTbmDFxGX8SHrWeVH%2fHJ0ew%3d&risl=&pid=ImgRaw&r=0" alt="装饰面砖" class="w-full h-48 object-cover rounded-md mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/1F2937/FFFFFF/png?text=Face+Bricks+Placeholder';">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="product3_title">装饰面砖</h3>
+                    <p class="text-gray-600 text-center mb-4" data-i18n="product3_desc">色彩丰富，纹理独特，为建筑外立面增添艺术美感，兼具耐候性和易清洁特性。</p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-full inline-block transition-all-300 open-modal-btn" data-product-id="product3" data-i18n="product_details">了解详情</button>
+                </div>
+                 <!-- Product Card 4: Pavement Bricks -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 铺路砖] -->
+                    <img src="https://th.bing.com/th/id/OIP.yTSsht6LYSjDGRW56ycu7gHaFS?w=514&h=367&rs=1&pid=ImgDetMain" alt="铺路砖" class="w-full h-48 object-cover rounded-md mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/6B7280/FFFFFF/png?text=Pavement+Bricks+Placeholder';">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="product4_title">铺路砖</h3>
+                    <p class="text-gray-600 text-center mb-4" data-i18n="product4_desc">高强度、耐磨损，适用于人行道、广场和园林道路，提供多种颜色和图案选择。</p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-full inline-block transition-all-300 open-modal-btn" data-product-id="product4" data-i18n="product_details">了解详情</button>
+                </div>
+                <!-- Product Card 5: Refractory Bricks -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 耐火砖] -->
+                    <img src="https://th.bing.com/th/id/OIP.o97CF1MLk_93FIh30zYdjAAAAA?rs=1&pid=ImgDetMain" alt="耐火砖" class="w-full h-48 object-cover rounded-md mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/4B5563/FFFFFF/png?text=Refractory+Bricks+Placeholder';">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="product5_title">耐火砖</h3>
+                    <p class="text-gray-600 text-center mb-4" data-i18n="product5_desc">耐高温、抗侵蚀，广泛应用于炉窑、烟囱等高温工业建筑，确保结构安全。</p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-full inline-block transition-all-300 open-modal-btn" data-product-id="product5" data-i18n="product_details">了解详情</button>
+                </div>
+                 <!-- Product Card 6: Interlocking Bricks -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 联锁砖] -->
+                    <img src="https://th.bing.com/th/id/OIP.WB8BAp132KnXixFRzIaz-QHaEK?rs=1&pid=ImgDetMain" alt="联锁砖" class="w-full h-48 object-cover rounded-md mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/1F2937/FFFFFF/png?text=Interlocking+Bricks+Placeholder';">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="product6_title">联锁砖</h3>
+                    <p class="text-gray-600 text-center mb-4" data-i18n="product6_desc">独特联锁设计，施工简便快捷，无需砂浆即可铺设，适用于各种地面铺设。</p>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-6 rounded-full inline-block transition-all-300 open-modal-btn" data-product-id="product6" data-i18n="product_details">了解详情</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intelligent Advisor Section (New Feature with Gemini API) -->
+    <section id="intelligent-advisor" class="py-16 md:py-24 bg-orange-100 text-gray-800 animate-on-scroll border-b border-orange-200">
+        <div class="container mx-auto px-4 text-center">
+            <!-- AI Advisor Logo/Icon -->
+            <div class="mb-6">
+                <svg class="w-16 h-16 mx-auto text-amber-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 7h2m-2 10h2M19 7h2m-2 10h2M4 12H2m20 0h-2M12 2a10 10 0 100 20 10 10 0 000-20z"></path>
+                </svg>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900" data-i18n="advisor_title">✨ 智能选砖顾问 ✨</h2>
+            </div>
+            <p class="text-xl mb-10 max-w-3xl mx-auto text-gray-700 opacity-90" data-i18n="advisor_intro">告诉我们您的项目需求，智能顾问将为您推荐最适合的建筑砖材！</p>
+            <div class="bg-white p-8 rounded-xl shadow-2xl max-w-2xl mx-auto">
+                <!-- New Input Fields for Advisor -->
+                <div class="mb-6 text-left">
+                    <label for="project-type" class="block text-gray-700 text-lg font-semibold mb-2" data-i18n="advisor_label_project_type">项目类型:</label>
+                    <select id="project-type" class="w-full p-3 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-600 text-lg border border-gray-300">
+                        <option value="" data-i18n="advisor_option_select">-- 请选择项目类型 --</option>
+                        <option value="住宅建筑" data-i18n="advisor_option_residential">住宅建筑</option>
+                        <option value="商业建筑" data-i18n="advisor_option_commercial">商业建筑</option>
+                        <option value="工业建筑" data-i18n="advisor_option_industrial">工业建筑</option>
+                        <option value="园林景观" data-i18n="advisor_option_landscape">园林景观</option>
+                        <option value="市政工程" data-i18n="advisor_option_municipal">市政工程</option>
+                        <option value="其他" data-i18n="advisor_option_other">其他</option>
+                    </select>
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="project-size" class="block text-gray-700 text-lg font-semibold mb-2" data-i18n="advisor_label_project_size">项目规模:</label>
+                    <select id="project-size" class="w-full p-3 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-600 text-lg border border-gray-300">
+                        <option value="" data-i18n="advisor_option_select">-- 请选择项目规模 --</option>
+                        <option value="小型项目 (例如：家庭装修，小花园)" data-i18n="advisor_option_small">小型项目 (例如：家庭装修，小花园)</option>
+                        <option value="中型项目 (例如：小型商业楼，联排别墅)" data-i18n="advisor_option_medium">中型项目 (例如：小型商业楼，联排别墅)</option>
+                        <option value="大型项目 (例如：大型住宅区，商业综合体，基础设施)" data-i18n="advisor_option_large">大型项目 (例如：大型住宅区，商业综合体，基础设施)</option>
+                    </select>
+                </div>
+                <textarea
+                    id="project-description"
+                    class="w-full p-4 rounded-lg bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 mb-6 text-lg border border-gray-300"
+                    rows="5"
+                    data-i18n-placeholder="advisor_placeholder"
+                    placeholder="例如：我正在建造一栋三层住宅楼，需要隔音好、保温性能强的砖；或者，我想修缮一个老旧的花园围墙，希望有复古风格的砖。"
+                ></textarea>
+                <button
+                    id="get-recommendation-btn"
+                    class="bg-amber-600 text-white hover:bg-amber-700 font-bold py-3 px-8 rounded-full shadow-lg text-lg inline-flex items-center justify-center transition-all-300 hover-scale-103"
+                >
+                    <span id="button-text" data-i18n="advisor_button">获取推荐</span>
+                    <div id="spinner" class="spinner ml-3 hidden"></div>
+                </button>
+                <div id="recommendation-output" class="mt-8 text-left p-6 bg-gray-50 rounded-lg shadow-inner hidden border border-gray-300">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900" data-i18n="advisor_output_title">为您推荐：</h3>
+                    <div id="recommendation-content" class="prose max-w-none text-gray-700 leading-relaxed">
+                        <!-- LLM generated content will go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section (moved for better flow with new advisor section) -->
+    <section class="py-16 md:py-24 bg-white animate-on-scroll border-b border-gray-200">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12 border-b-4 border-amber-600 pb-2 inline-block" data-i18n="why_us_title">为什么选择我们？</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-8 flex flex-col items-center text-center transform transition-all-300 hover-scale-103">
+                    <div class="bg-amber-100 p-4 rounded-full mb-6">
+                        <svg class="w-12 h-12 text-amber-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4" data-i18n="feature1_title">卓越品质</h3>
+                    <p class="text-gray-700" data-i18n="feature1_desc">严格执行国际质量标准，从原材料到成品，每一环节都经过精密检测，确保产品性能卓越。</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-8 flex flex-col items-center text-center transform transition-all-300 hover-scale-103">
+                    <div class="bg-amber-100 p-4 rounded-full mb-6">
+                        <svg class="w-12 h-12 text-amber-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4" data-i18n="feature2_title">环保节能</h3>
+                    <p class="text-gray-700" data-i18n="feature2_desc">采用环保材料和先进生产工艺，减少碳排放，助力绿色建筑发展，实现可持续未来。</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-8 flex flex-col items-center text-center transform transition-all-300 hover-scale-103">
+                    <div class="bg-amber-100 p-4 rounded-full mb-6">
+                        <svg class="w-12 h-12 text-amber-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V9a1 1 0 10-2 0v1m2-1a2 2 0 11-4 0v1m2-1a2 2 0 10-4 0v1m2-1a2 2 0 11-4 0v1m2-1a2 2 0 10-4 0v1m2-1a2 2 0 11-4 0v1m2-1a2 2 0 10-4 0v1m2-1a2 2 0 11-4 0v1"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4" data-i18n="feature3_title">定制服务</h3>
+                    <p class="text-gray-700" data-i18n="feature3_desc">根据客户特定需求，提供个性化定制服务，从设计到生产，全程满足您的独特项目要求。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 md:py-24 bg-gray-100 animate-on-scroll border-b border-gray-200">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12 border-b-4 border-amber-600 pb-2 inline-block" data-i18n="projects_title">成功项目案例</h2>
+            <p class="text-lg text-gray-700 mb-12 max-w-3xl mx-auto" data-i18n="projects_intro">我们很荣幸参与了众多标志性建筑项目，我们的产品以其卓越的性能和美学价值赢得了客户的广泛赞誉。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 商业大厦] -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Commercial_building_in_Hyderabad.jpg/1280px-Commercial_building_in_Hyderabad.jpg" alt="商业大厦" class="w-full h-64 object-cover rounded-t-xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/8B5CF6/FFFFFF/png?text=Commercial+Building+Placeholder';">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="project1_title">市中心商业综合体</h3>
+                        <p class="text-gray-600 mb-4" data-i18n="project1_desc">为市中心地标性商业大厦提供定制饰面砖，提升建筑的现代感和耐久性。</p>
+                        <a href="#" class="text-amber-600 hover:text-amber-800 font-medium transition-all-300" data-i18n="project_details">查看详情 &rarr;</a>
+                    </div>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 高端住宅区] -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Housing_complex_in_Hong_Kong.jpg/1280px-Housing_complex_in_Hong_Kong.jpg" alt="高端住宅区" class="w-full h-64 object-cover rounded-t-xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/22C55E/FFFFFF/png?text=Residential+Complex+Placeholder';">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="project2_title">滨海高端住宅区</h3>
+                        <p class="text-gray-600 mb-4" data-i18n="project2_desc">供应高强度环保空心砖，确保建筑结构稳定性的同时，提供优异的隔热效果。</p>
+                        <a href="#" class="text-amber-600 hover:text-amber-800 font-medium transition-all-300" data-i18n="project_details">查看详情 &rarr;</a>
+                    </div>
+                </div>
+                <!-- Project Card 3 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition-all-300 hover-scale-103">
+                    <!-- [Image of 教育园区] -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/University_of_Birmingham_Campus.jpg/1280px-University_of_Birmingham_Campus.jpg" alt="教育园区" class="w-full h-64 object-cover rounded-t-xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FACC15/FFFFFF/png?text=Educational+Campus+Placeholder';">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-i18n="project3_title">创新教育园区</h3>
+                        <p class="text-gray-600 mb-4" data-i18n="project3_desc">提供多种规格的标准红砖及艺术砖，构建安全、美观且富有教育意义的校园环境。</p>
+                        <a href="#" class="text-amber-600 hover:text-amber-800 font-medium transition-all-300" data-i18n="project_details">查看详情 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-amber-600 text-white animate-on-scroll">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8" data-i18n="contact_cta_title">立即联系我们，开启您的卓越项目！</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto opacity-90" data-i18n="contact_cta_text">无论是产品咨询、定制需求还是合作洽谈，我们的专业团队随时准备为您提供支持。</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <!-- Updated phone number and tel: link -->
+                <a href="tel:+959692101967" class="bg-white text-amber-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-xl text-lg inline-block transition-all-300 hover-scale-103" data-i18n="contact_phone_button">致电咨询: 09692101967</a>
+                <!-- Email Form Trigger Button -->
+                <button id="send-email-btn" class="border-2 border-white text-white hover:bg-white hover:text-amber-600 font-bold py-3 px-8 rounded-full shadow-xl text-lg inline-block transition-all-300 hover-scale-103" data-i18n="contact_email_button">发送邮件</button>
+            </div>
+            
+            <!-- Contact Form for Email (Mailto workaround) -->
+            <div id="email-form-container" class="mt-12 p-8 bg-amber-700 rounded-xl shadow-inner max-w-xl mx-auto hidden">
+                <h3 class="text-2xl font-semibold mb-6" data-i18n="contact_form_title">通过邮件联系我们</h3>
+                <p class="text-sm mb-4 text-amber-100" data-i18n="contact_form_notice">请填写以下信息，点击发送后，您的邮件客户端将会打开预填好的邮件。您需要手动点击发送按钮。</p>
+                <div class="mb-4 text-left">
+                    <label for="contact-name" class="block text-white text-md font-semibold mb-2" data-i18n="contact_form_name">您的姓名:</label>
+                    <input type="text" id="contact-name" class="w-full p-3 rounded-lg bg-amber-600 text-white placeholder-amber-300 focus:outline-none focus:ring-2 focus:ring-white" data-i18n-placeholder="contact_form_name_placeholder" placeholder="请输入您的姓名">
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="contact-email" class="block text-white text-md font-semibold mb-2" data-i18n="contact_form_email">您的邮箱:</label>
+                    <input type="email" id="contact-email" class="w-full p-3 rounded-lg bg-amber-600 text-white placeholder-amber-300 focus:outline-none focus:ring-2 focus:ring-white" data-i18n-placeholder="contact_form_email_placeholder" placeholder="请输入您的邮箱">
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="contact-message" class="block text-white text-md font-semibold mb-2" data-i18n="contact_form_message">您的留言:</label>
+                    <textarea id="contact-message" class="w-full p-3 rounded-lg bg-amber-600 text-white placeholder-amber-300 focus:outline-none focus:ring-2 focus:ring-white" rows="4" data-i18n-placeholder="contact_form_message_placeholder" placeholder="请输入您的留言内容"></textarea>
+                </div>
+                <button id="submit-email-btn" class="bg-white text-amber-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg text-lg inline-block transition-all-300 hover-scale-103" data-i18n="contact_form_send">发送邮件</button>
+            </div>
+
+            <div class="mt-12 text-lg">
+                <p class="mb-2" data-i18n="contact_address">地址：缅甸腊戌</p>
+                <p data-i18n="contact_service_region">主要服务区域：缅甸北部地区</p>
+                <p data-i18n="contact_hours">营业时间：周一至周五 9:00 - 18:00</p>
+            </div>
+            <!-- Google Map Embed with updated coordinates -->
+            <div class="mt-12 w-full max-w-4xl mx-auto rounded-lg shadow-2xl overflow-hidden">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3698.810141673998!2d97.75778277524941!3d23.001969001402266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjMuMDAxOTY5LDk3Ljc2MDM1Nw!5e0!3m2!1sen!2smm!4v1718000000000!5m2!1sen!2smm"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="缅甸腊戌地图">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gradient-to-b from-gray-900 to-gray-800 text-gray-300 py-10"> <!-- Subtle dark gradient for night mode feel -->
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Company Info -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4" data-i18n="footer_company_name">卓越建材</h3>
+                <p class="text-sm leading-relaxed" data-i18n="footer_company_desc">我们致力于提供高品质、环保的建筑砖材，为您的项目提供坚实可靠的基础。</p>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4" data-i18n="footer_quick_links_title">快速链接</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#home" class="hover:text-amber-400 transition-all-300" data-i18n="nav_home">首页</a></li>
+                    <li><a href="#about" class="hover:text-amber-400 transition-all-300" data-i18n="nav_about">关于我们</a></li>
+                    <li><a href="#products" class="hover:text-amber-400 transition-all-300" data-i18n="nav_products">产品中心</a></li>
+                    <li><a href="#intelligent-advisor" class="hover:text-amber-400 transition-all-300" data-i18n="nav_advisor">智能顾问</a></li>
+                    <li><a href="#projects" class="hover:text-amber-400 transition-all-300" data-i18n="nav_projects">项目案例</a></li>
+                    <li><a href="#contact" class="hover:text-amber-400 transition-all-300" data-i18n="nav_contact">联系我们</a></li>
+                </ul>
+            </div>
+            <!-- Social Media / Follow Us -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4" data-i18n="footer_follow_us_title">关注我们</h3>
+                <div class="flex space-x-4">
+                    <!-- Telegram Icon with direct link -->
+                    <a href="https://t.me/marvin168888" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-all-300" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.558 8.016l-2.483 11.517c-.172.801-.663.992-1.31.621l-3.992-2.946-1.921 1.85c-.217.209-.4.364-.783.364l.288-4.043 7.377-6.685c.32-.288-.06-.445-.486-.164l-9.014 5.617-3.953-1.233c-.785-.246-.803-.787.172-1.121l14.49-5.617c.654-.254 1.226.155.992.812z"/>
+                        </svg>
+                    </a>
+                    <!-- WeChat Icon (Standard WeChat Logo SVG - simplified for embedding) -->
+                    <a href="#" class="text-gray-400 hover:text-white transition-all-300" aria-label="微信">
+                        <svg viewBox="0 0 1024 1024" width="32" height="32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M848.1 145.9c-49.8-49.8-118.8-77.2-192.1-77.2-73.3 0-142.3 27.4-192.1 77.2L145.9 591.9c-49.8 49.8-77.2 118.8-77.2 192.1 0 73.3 27.4 142.3 77.2 192.1 49.8 49.8 118.8 77.2 192.1 77.2 73.3 0 142.3-27.4 192.1-77.2l512.2-512.2c49.8-49.8 77.2-118.8 77.2-192.1 0-73.3-27.4-142.3-77.2-192.1zM512 848.1c-145.9 0-264-118.1-264-264s118.1-264 264-264 264 118.1 264 264-118.1 264-264 264zM720 480c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zM304 480c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z"/>
+                        </svg>
+                    </a>
+                    <!-- Facebook Icon -->
+                    <a href="#" class="text-gray-400 hover:text-white transition-all-300" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.124 8.438 9.878V14.6H8.054V11.69h2.384v-2.3c0-2.35 1.402-3.64 3.542-3.64.996 0 1.854.088 2.106.12v2.41h-1.428c-1.127 0-1.344.535-1.344 1.348v1.73h2.69L16.59 14.6h-2.31V21.878C18.343 21.124 22 16.991 22 12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <!-- Statements & Policies -->
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-4" data-i18n="footer_policies_title">声明与政策</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-amber-400 transition-all-300" data-i18n="footer_privacy_policy">隐私政策</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-all-300" data-i18n="footer_terms_of_service">服务条款</a></li>
+                    <li><a href="#" class="hover:text-amber-400 transition-all-300" data-i18n="footer_legal_statement">法律声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-500">
+            <p class="mb-2" data-i18n="footer_disclaimer">本网站所有内容仅供参考，不构成任何形式的承诺或建议。用户应自行寻求专业的法律或商业建议。最终解释权归卓越建材有限公司所有。</p>
+            <span data-i18n="footer_copyright">&copy; 2025 卓越建材有限公司. 版权所有.</span>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal Structure -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-product-title" class="text-3xl font-bold text-gray-900 mb-4 border-b-2 border-amber-600 pb-2"></h2>
+            <div id="modal-product-details" class="space-y-6">
+                <!-- Details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            "page_title": {
+                "zh-CN": "卓越建筑砖厂 - 打造坚实未来",
+                "my": "ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်း - ခိုင်မာသောအနာဂတ်ကို တည်ဆောက်သည်"
+            },
+            "company_logo": {
+                "zh-CN": "卓越建材",
+                "my": "ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်း"
+            },
+            "nav_home": {
+                "zh-CN": "首页",
+                "my": "ပင်မစာမျက်နှာ"
+            },
+            "nav_about": {
+                "zh-CN": "关于我们",
+                "my": "ကျွန်ုပ်တို့အကြောင်း"
+            },
+            "nav_products": {
+                "zh-CN": "产品中心",
+                "my": "ထုတ်ကုန်များ"
+            },
+            "nav_advisor": {
+                "zh-CN": "智能顾问",
+                "my": "စမတ်အုတ်ရွေးချယ်ရေး အကြံပေး"
+            },
+            "nav_projects": {
+                "zh-CN": "项目案例",
+                "my": "စီမံကိန်းများ"
+            },
+            "nav_contact": {
+                "zh-CN": "联系我们",
+                "my": "ဆက်သွယ်ရန်"
+            },
+            "hero_title": {
+                "zh-CN": "卓越品质，筑就坚实未来",
+                "my": "ထူးချွန်အရည်အသွေး၊ ခိုင်မာသောအနာဂတ်ကို တည်ဆောက်သည်"
+            },
+            "hero_text": {
+                "zh-CN": "作为领先的建筑砖制造商，我们致力于提供高品质、环保的建筑材料，为您的项目奠定坚实基础。",
+                "my": "အုတ်ထုတ်လုပ်သူအနေဖြင့် ကျွန်ုပ်တို့သည် အရည်အသွေးမြင့်မားပြီး သဘာဝပတ်ဝန်းကျင်နှင့် လိုက်ဖက်သော ဆောက်လုပ်ရေးပစ္စည်းများကို ပံ့ပိုးပေးရန် ကတိပြုထားပြီး သင်၏စီမံကိန်းအတွက် ခိုင်မာသော အခြေခံအုတ်မြစ်ကို ချပေးပါသည်။"
+            },
+            "hero_button": {
+                "zh-CN": "探索我们的产品",
+                "my": "ကျွန်ုပ်တို့၏ထုတ်ကုန်များကို ရှာဖွေပါ"
+            },
+            "about_title": {
+                "zh-CN": "关于我们",
+                "my": "ကျွန်ုပ်တို့အကြောင်း"
+            },
+            "about_p1": {
+                "zh-CN": "卓越建材有限公司成立于2025年，是一家集研发、生产、销售为一体的现代化建筑砖企业。我们始终秉承“质量为本，客户至上”的经营理念，致力于为**全缅甸客户**提供卓越的建筑材料解决方案。",
+                "my": "ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်းကုမ္ပဏီလီမိတက်ကို ၂၀၂၅ ခုနှစ်တွင် တည်ထောင်ခဲ့ပြီး၊ သုတေသန၊ ထုတ်လုပ်မှုနှင့် ရောင်းချမှုကို ပေါင်းစပ်ထားသော ခေတ်မီအုတ်လုပ်ငန်းတစ်ခုဖြစ်သည်။ ကျွန်ုပ်တို့သည် \"အရည်အသွေးကို ဦးစားပေး၊ ဖောက်သည်ကို အလေးထား\" ဟူသော စီးပွားရေးအတွေးအခေါ်ကို အမြဲလက်ကိုင်ထားပြီး **မြန်မာနိုင်ငံတစ်ဝှမ်းလုံးရှိ ဖောက်သည်များ**အတွက် ထူးချွန်သော ဆောက်လုပ်ရေးပစ္စည်းဖြေရှင်းချက်များကို ပံ့ပိုးပေးရန် ကတိပြုပါသည်။"
+            },
+            "about_p2": {
+                "zh-CN": "我们拥有先进的生产设备和专业的研发团队，产品涵盖多种规格和类型，广泛应用于住宅、商业、工业等各类建筑项目。我们深知每一块砖都承载着建筑的未来，因此我们严格把控从原材料采购到生产工艺的每一个环节，确保每一块砖都达到行业最高标准。我们主要服务于**缅甸北部地区**。",
+                "my": "ကျွန်ုပ်တို့တွင် ခေတ်မီထုတ်လုပ်ရေးပစ္စည်းများနှင့် ပရော်ဖက်ရှင်နယ် သုတေသနနှင့် ဖွံ့ဖြိုးတိုးတက်ရေးအဖွဲ့ရှိပြီး၊ အမျိုးမျိုးသော အုတ်အမျိုးအစားများနှင့် အရွယ်အစားများစွာကို ထုတ်လုပ်ပါသည်။ ၎င်းတို့ကို လူနေအိမ်ရာ၊ စီးပွားရေးနှင့် စက်မှုလုပ်ငန်းသုံး ဆောက်လုပ်ရေးစီမံကိန်းများစွာတွင် အကျယ်တဝှမ်း အသုံးပြုပါသည်။ အုတ်တစ်ချပ်ချင်းစီသည် အဆောက်အအုံ၏ အနာဂတ်ကို ထမ်းဆောင်သည်ဟု ကျွန်ုပ်တို့နားလည်ထားသောကြောင့်၊ ကုန်ကြမ်းဝယ်ယူမှုမှ ထုတ်လုပ်ရေးလုပ်ငန်းစဉ်အထိ အဆင့်တိုင်းကို တင်းကြပ်စွာ ထိန်းချုပ်ကာ အုတ်တိုင်းသည် စက်မှုလုပ်ငန်း၏ အမြင့်ဆုံးစံချိန်စံညွှန်းများကို ပြည့်မီကြောင်း သေချာပါသည်။ ကျွန်ုပ်တို့သည် အဓိကအားဖြင့် **မြန်မာနိုင်ငံမြောက်ပိုင်းဒေသ**တွင် ဝန်ဆောင်မှုပေးပါသည်။"
+            },
+            "about_feature1": {
+                "zh-CN": "领先的生产技术",
+                "my": "ဦးဆောင်ထုတ်လုပ်မှုနည်းပညာ"
+            },
+            "about_feature2": {
+                "zh-CN": "严格的质量控制",
+                "my": "တင်းကြပ်သောအရည်အသွေးထိန်းချုပ်မှု"
+            },
+            "about_feature3": {
+                "zh-CN": "专业的客户服务",
+                "my": "ပရော်ဖက်ရှင်နယ်ဖောက်သည်ဝန်ဆောင်မှု"
+            },
+            "products_title": {
+                "zh-CN": "产品中心",
+                "my": "ထုတ်ကုန်များ"
+            },
+            "products_intro": {
+                "zh-CN": "我们提供多种类型和规格的优质建筑砖，以满足您多样化的建筑需求。所有产品均经过严格测试，确保卓越的性能和持久耐用性。",
+                "my": "ကျွန်ုပ်တို့သည် အမျိုးမျိုးသော ဆောက်လုပ်ရေးလိုအပ်ချက်များကို ဖြည့်ဆည်းရန် အရည်အသွေးမြင့် အုတ်အမျိုးအစားများနှင့် အရွယ်အစားမျိုးစုံကို ပံ့ပိုးပေးပါသည်။ ထုတ်ကုန်အားလုံးသည် ထူးချွန်သောစွမ်းဆောင်ရည်နှင့် ကြာရှည်ခံမှုကို သေချာစေရန် တင်းကြပ်စွာ စမ်းသပ်ထားပါသည်။"
+            },
+            "product1_title": {
+                "zh-CN": "液压实心标砖",
+                "my": "ဟိုက်ဒရောလစ် အမာခံအုတ်"
+            },
+            "product1_desc": {
+                "zh-CN": "传统经典，强度高，适用于承重墙体和外墙装饰，提供优异的隔热和隔音效果。",
+                "my": "ရိုးရာအုတ်နီခဲသည် ခိုင်ခံ့မှုမြင့်မားပြီး နံရံတည်ဆောက်ရန်နှင့် ပြင်ပအလှဆင်ရန်အတွက် သင့်လျော်ပါသည်။ အပူနှင့် အသံကို ကောင်းမွန်စွာ ကာကွယ်ပေးပါသည်။"
+            },
+            "product2_title": {
+                "zh-CN": "环保空心砖",
+                "my": "သဘာဝပတ်ဝန်းကျင်ထိန်းသိမ်းရေး အုတ်ပေါက်"
+            },
+            "product2_desc": {
+                "zh-CN": "轻质高强，节能环保，有效降低建筑自重，提高施工效率，是现代建筑的理想选择。",
+                "my": "အလေးချိန်ပေါ့ပါး၊ ခိုင်ခံ့မှုမြင့်မား၊ စွမ်းအင်ချွေတာပြီး သဘာဝပတ်ဝန်းကျင်နှင့် လိုက်ဖက်သည်။ ဆောက်လုပ်ရေးအလေးချိန်ကို လျှော့ချကာ တည်ဆောက်မှုအလုပ်နှုန်းကို မြှင့်တင်ပေးသည်။ ခေတ်မီဆောက်လုပ်ရေးအတွက် အကောင်းဆုံးရွေးချယ်မှုဖြစ်သည်။"
+            },
+            "product3_title": {
+                "zh-CN": "装饰面砖",
+                "my": "လမ်းခင်းရောင်စုံအုတ်"
+            },
+            "product3_desc": {
+                "zh-CN": "色彩丰富，纹理独特，为建筑外立面增添艺术美感，兼具耐候性和易清洁特性。",
+                "my": "အရောင်အသွေးစုံလင်ပြီး ထူးခြားသောဒီဇိုင်းများပါရှိသည်။ အဆောက်အအုံပြင်ပမျက်နှာစာကို အနုပညာဆန်ဆန် လှပစေပြီး ရာသီဥတုဒဏ်ခံနိုင်ခြင်း၊ သန့်ရှင်းရလွယ်ကူခြင်း စသည့်အင်္ဂါရပ်များ ပါရှိသည်။"
+            },
+             "product4_title": {
+                "zh-CN": "铺路砖",
+                "my": "လမ်းခင်းအုတ်"
+            },
+            "product4_desc": {
+                "zh-CN": "高强度、耐磨损，适用于人行道、广场和园林道路，提供多种颜色和图案选择。",
+                "my": "ခိုင်ခံ့မှုမြင့်မားပြီး ပွန်းပဲ့ခံနိုင်ရည်ရှိသည်။ လူသွားလမ်း၊ ရင်ပြင်နှင့် ပန်းခြံလမ်းများအတွက် သင့်လျော်ပြီး အရောင်နှင့် ဒီဇိုင်းမျိုးစုံဖြင့် ရရှိနိုင်သည်။"
+            },
+            "product5_title": {
+                "zh-CN": "耐火砖",
+                "my": "မီးခံအုတ်"
+            },
+            "product5_desc": {
+                "zh-CN": "耐高温、抗侵蚀，广泛应用于炉窑、烟囱等高温工业建筑，确保结构安全。",
+                "my": "အပူချိန်မြင့်မားမှုနှင့် တိုက်စားခြင်းဒဏ်ကို ခံနိုင်ရည်ရှိသည်။ မီးဖိုများ၊ မီးခိုးခေါင်းတိုင်များ ကဲ့သို့သော အပူချိန်မြင့်မားသည့် စက်မှုလုပ်ငန်းသုံး အဆောက်အအုံများတွင် ကျယ်ပြန့်စွာ အသုံးပြုပြီး တည်ဆောက်ပုံ ဘေးကင်းလုံခြုံမှုကို သေချာစေပါသည်။"
+            },
+            "product6_title": {
+                "zh-CN": "联锁砖",
+                "my": "ဆက်စပ်အုတ်"
+            },
+            "product6_desc": {
+                "zh-CN": "独特联锁设计，施工简便快捷，无需砂浆即可铺设，适用于各种地面铺设。",
+                "my": "ထူးခြားသော ဆက်စပ်ဒီဇိုင်းဖြင့် တည်ဆောက်ရလွယ်ကူပြီး မြန်ဆန်သည်။ ဘိလပ်မြေမလိုဘဲ ခင်းကျင်းနိုင်ပြီး မြေပြင်ခင်းခြင်းအမျိုးမျိုးအတွက် သင့်လျော်ပါသည်။"
+            },
+            "product_details": {
+                "zh-CN": "了解详情",
+                "my": "အသေးစိတ်ကြည့်ရှုရန်"
+            },
+            "advisor_title": {
+                "zh-CN": "✨ 智能选砖顾问 ✨",
+                "my": "✨ စမတ်အုတ်ရွေးချယ်ရေး အကြံပေး ✨"
+            },
+            "advisor_intro": {
+                "zh-CN": "告诉我们您的项目需求，智能顾问将为您推荐最适合的建筑砖材！",
+                "my": "သင်၏စီမံကိန်းလိုအပ်ချက်များကို ကျွန်ုပ်တို့အား ပြောပြပါ၊ ကျွန်ုပ်တို့၏ စမတ်အကြံပေးသည် သင့်အတွက် အသင့်တော်ဆုံး အုတ်ပစ္စည်းများကို အကြံပြုပေးပါမည်။"
+            },
+            "advisor_label_project_type": {
+                "zh-CN": "项目类型:",
+                "my": "စီမံကိန်းအမျိုးအစား:"
+            },
+            "advisor_option_select": {
+                "zh-CN": "-- 请选择项目类型 --",
+                "my": "-- စီမံကိန်းအမျိုးအစားကို ရွေးချယ်ပါ --"
+            },
+            "advisor_option_residential": {
+                "zh-CN": "住宅建筑",
+                "my": "လူနေအိမ်ရာ"
+            },
+            "advisor_option_commercial": {
+                "zh-CN": "商业建筑",
+                "my": "စီးပွားရေးအဆောက်အအုံ"
+            },
+            "advisor_option_industrial": {
+                "zh-CN": "工业建筑",
+                "my": "စက်မှုအဆောက်အအုံ"
+            },
+            "advisor_option_landscape": {
+                "zh-CN": "园林景观",
+                "my": "ပန်းခြံနှင့်ရှုခင်း"
+            },
+            "advisor_option_municipal": {
+                "zh-CN": "市政工程",
+                "my": "မြို့ပြအင်ဂျင်နီယာလုပ်ငန်း"
+            },
+            "advisor_option_other": {
+                "zh-CN": "其他",
+                "my": "အခြား"
+            },
+            "advisor_label_project_size": {
+                "zh-CN": "项目规模:",
+                "my": "စီမံကိန်းအရွယ်အစား:"
+            },
+            "advisor_option_small": {
+                "zh-CN": "小型项目 (例如：家庭装修，小花园)",
+                "my": "စီမံကိန်းသေး (ဥပမာ: အိမ်တွင်းအလှဆင်ခြင်း၊ ပန်းခြံငယ်)"
+            },
+            "advisor_option_medium": {
+                "zh-CN": "中型项目 (例如：小型商业楼，联排别墅)",
+                "my": "စီမံကိန်းအလယ်အလတ် (ဥပမာ: စီးပွားရေးအဆောက်အအုံငယ်၊ တိုက်ခန်း)"
+            },
+            "advisor_option_large": {
+                "zh-CN": "大型项目 (例如：大型住宅区，商业综合体，基础设施)",
+                "my": "စီမံကိန်းကြီး (ဥပမာ: လူနေအိမ်ရာကြီး၊ စီးပွားရေးဗဟို၊ အခြေခံအဆောက်အအုံ)"
+            },
+            "advisor_placeholder": {
+                "zh-CN": "例如：我正在建造一栋三层住宅楼，需要隔音好、保温性能强的砖；或者，我想修缮一个老旧的花园围墙，希望有复古风格的砖。",
+                "my": "ဥပမာ- ကျွန်တော်သည် ၃ ထပ်တိုက်ဆောက်လုပ်နေပြီး အသံကာကွယ်မှုကောင်း၍ အပူထိန်းနိုင်သော အုတ်များ လိုအပ်ပါသည်။ သို့မဟုတ်၊ ကျွန်တော်သည် ပန်းခြံခြံစည်းရိုးဟောင်းကို ပြုပြင်လိုပြီး ရှေးဟောင်းပုံစံ အုတ်များ လိုအပ်ပါသည်။"
+            },
+            "advisor_button": {
+                "zh-CN": "获取推荐",
+                "my": "အကြံပြုချက်ရယူပါ"
+            },
+            "advisor_output_title": {
+                "zh-CN": "为您推荐：",
+                "my": "သင့်အတွက် အကြံပြုချက်-"
+            },
+            "loading_text": {
+                "zh-CN": "生成中...",
+                "my": "ဖန်တီးနေသည်..."
+            },
+            "error_empty_prompt": {
+                "zh-CN": "请输入您的项目描述以便获取推荐。",
+                "my": "သင်၏စီမံကိန်းအကြောင်းအရာကို ထည့်သွင်းပါ၊ အကြံပြုချက်ရယူရန်။"
+            },
+            "error_llm_failed": {
+                "zh-CN": "抱歉，未能获取到推荐。请稍后再试或换个描述。",
+                "my": "တောင်းပန်ပါတယ်၊ အကြံပြုချက် မရရှိပါ။ နောက်မှပြန်ကြိုးစားပါ သို့မဟုတ် ဖော်ပြချက်ကို ပြောင်းလဲပါ။"
+            },
+            "error_network": {
+                "zh-CN": "获取推荐时发生错误，请检查网络连接或稍后再试。",
+                "my": "အကြံပြုချက်ရယူရာတွင် အမှားဖြစ်ပွားပါသည်။ ကျေးဇူးပြု၍ ကွန်ရက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ သို့မဟုတ် နောက်မှပြန်ကြိုးစားပါ။"
+            },
+            "why_us_title": {
+                "zh-CN": "为什么选择我们？",
+                "my": "အဘယ်ကြောင့် ကျွန်ုပ်တို့ကို ရွေးချယ်သင့်သနည်း။"
+            },
+            "feature1_title": {
+                "zh-CN": "卓越品质",
+                "my": "ထူးချွန်အရည်အသွေး"
+            },
+            "feature1_desc": {
+                "zh-CN": "严格执行国际质量标准，从原材料到成品，每一环节都经过精密检测，确保产品性能卓越。",
+                "my": "နိုင်ငံတကာ အရည်အသွေးစံချိန်စံညွှန်းများကို တင်းကြပ်စွာ လိုက်နာပြီး ကုန်ကြမ်းမှစ၍ အချောထည်အထိ အဆင့်တိုင်းကို တိကျစွာ စစ်ဆေးကာ ထုတ်ကုန်စွမ်းဆောင်ရည် ထူးချွန်စေရန် သေချာပါသည်။"
+            },
+            "feature2_title": {
+                "zh-CN": "环保节能",
+                "my": "သဘာဝပတ်ဝန်းကျင် ထိန်းသိမ်းပြီး စွမ်းအင်ချွေတာခြင်း"
+            },
+            "feature2_desc": {
+                "zh-CN": "采用环保材料和先进生产工艺，减少碳排放，助力绿色建筑发展，实现可持续未来。",
+                "my": "သဘာဝပတ်ဝန်းကျင်နှင့် လိုက်ဖက်သော ပစ္စည်းများနှင့် ခေတ်မီထုတ်လုပ်မှု နည်းပညာများကို အသုံးပြုကာ ကာဗွန်ထုတ်လွှတ်မှုကို လျှော့ချပြီး အစိမ်းရောင် ဆောက်လုပ်ရေး ဖွံ့ဖြိုးတိုးတက်မှုကို အထောက်အကူပြုကာ ရေရှည်တည်တံ့သော အနာဂတ်ကို ဖန်တီးပါသည်။"
+            },
+            "feature3_title": {
+                "zh-CN": "定制服务",
+                "my": "စိတ်ကြိုက်ဝန်ဆောင်မှု"
+            },
+            "feature3_desc": {
+                "zh-CN": "根据客户特定需求，提供个性化定制服务，从设计到生产，全程满足您的独特项目要求。",
+                "my": "ဖောက်သည်များ၏ သီးခြားလိုအပ်ချက်များအလိုက် စိတ်ကြိုက်ဝန်ဆောင်မှုများကို ပံ့ပိုးပေးပြီး ဒီဇိုင်းမှ ထုတ်လုပ်မှုအထိ သင်၏ ထူးခြားသောစီမံကိန်းလိုအပ်ချက်များကို ပြည့်မီစေရန် ကူညီပေးပါသည်။"
+            },
+            "projects_title": {
+                "zh-CN": "成功项目案例",
+                "my": "အောင်မြင်သော စီမံကိန်းများ"
+            },
+            "projects_intro": {
+                "zh-CN": "我们很荣幸参与了众多标志性建筑项目，我们的产品以其卓越的性能和美学价值赢得了客户的广泛赞誉。",
+                "my": "ကျွန်ုပ်တို့၏ထုတ်ကုန်များသည် ၎င်းတို့၏ ထူးချွန်သောစွမ်းဆောင်ရည်နှင့် အနုပညာတန်ဖိုးများကြောင့် ဖောက်သည်များ၏ ကျယ်ပြန့်သော ချီးကျူးမှုကို ရရှိခဲ့ပြီး ထင်ရှားသော ဆောက်လုပ်ရေးစီမံကိန်းများစွာတွင် ပါဝင်ခဲ့ရသည့်အတွက် ဂုဏ်ယူပါသည်။"
+            },
+            "project1_title": {
+                "zh-CN": "市中心商业综合体",
+                "my": "မြို့လယ်စီးပွားရေးဗဟို"
+            },
+            "project1_desc": {
+                "zh-CN": "为市中心地标性商业大厦提供定制饰面砖，提升建筑的现代感和耐久性。",
+                "my": "မြို့လယ်ရှိ အထင်ကရ စီးပွားရေးအဆောက်အအုံအတွက် စိတ်ကြိုက်အလှဆင်အုတ်များကို ပံ့ပိုးပေးကာ အဆောက်အအုံ၏ ခေတ်မီဆန်မှုနှင့် ခိုင်ခံ့မှုကို မြှင့်တင်ပေးပါသည်။"
+            },
+            "project2_title": {
+                "zh-CN": "滨海高端住宅区",
+                "my": "ပင်လယ်ကမ်းစပ် အဆင့်မြင့်လူနေအိမ်ရာ"
+            },
+            "project2_desc": {
+                "zh-CN": "供应高强度环保空心砖，确保建筑结构稳定性的同时，提供优异的隔热效果。",
+                "my": "ခိုင်ခံ့မှုမြင့်မားသော သဘာဝပတ်ဝန်းကျင် အုတ်ပေါက်များကို ပံ့ပိုးပေးကာ အဆောက်အအုံတည်ဆောက်ပုံ တည်ငြိမ်မှုကို သေချာစေပြီး အပူဒဏ်ကို ကောင်းမွန်စွာ ကာကွယ်ပေးပါသည်။"
+            },
+            "project3_title": {
+                "zh-CN": "创新教育园区",
+                "my": "တီထွင်ဆန်းသစ်သော ပညာရေးစခန်း"
+            },
+            "project3_desc": {
+                "zh-CN": "提供多种规格的标准红砖及艺术砖，构建安全、美观且富有教育意义的校园环境。",
+                "my": "အမျိုးမျိုးသော အုတ်နီခဲများနှင့် အနုပညာအုတ်များကို ပံ့ပိုးပေးကာ လုံခြုံစိတ်ချရပြီး လှပကာ ပညာရေးတန်ဖိုးရှိသော ကျောင်းဝန်းကျင်ကို ဖန်တီးပါသည်။"
+            },
+            "project_details": {
+                "zh-CN": "查看详情 &rarr;",
+                "my": "အသေးစိတ်ကြည့်ရှုရန် &rarr;"
+            },
+            "contact_cta_title": {
+                "zh-CN": "立即联系我们，开启您的卓越项目！",
+                "my": "သင်၏ထူးချွန်သောစီမံကိန်းကိုစတင်ရန် ကျွန်ုပ်တို့ကိုယခုပင်ဆက်သွယ်ပါ။"
+            },
+            "contact_cta_text": {
+                "zh-CN": "无论是产品咨询、定制需求还是合作洽谈，我们的专业团队随时准备为您提供支持。",
+                "my": "ထုတ်ကုန်မေးမြန်းမှုများ၊ စိတ်ကြိုက်လိုအပ်ချက်များ သို့မဟုတ် ပူးပေါင်းဆောင်ရွက်မှု ဆွေးနွေးမှုများအတွက် ကျွန်ုပ်တို့၏ ပရော်ဖက်ရှင်နယ်အဖွဲ့သည် သင့်အား ကူညီရန် အမြဲအသင့်ရှိပါသည်။"
+            },
+            "contact_phone_button": {
+                "zh-CN": "致电咨询: 09692101967",
+                "my": "ဖုန်းဖြင့် ဆက်သွယ်ရန်: 09692101967"
+            },
+            "contact_email_button": {
+                "zh-CN": "发送邮件",
+                "my": "အီးမေးလ် ပေးပို့ရန်"
+            },
+            "contact_form_title": {
+                "zh-CN": "通过邮件联系我们",
+                "my": "အီးမေးလ်ဖြင့် ဆက်သွယ်ရန်"
+            },
+            "contact_form_notice": {
+                "zh-CN": "请填写以下信息，点击发送后，您的邮件客户端将会打开预填好的邮件。您需要手动点击发送按钮。",
+                "my": "အောက်ပါအချက်အလက်များကို ဖြည့်စွက်ပြီး ပေးပို့ရန် ခလုတ်ကို နှိပ်ပါက သင်၏အီးမေးလ် client ကို ကြိုတင်ဖြည့်သွင်းထားသောအီးမေးလ်ဖြင့် ဖွင့်ပါလိမ့်မည်။ သင်ကိုယ်တိုင် ပေးပို့ရန် ခလုတ်ကို နှိပ်ရန်လိုအပ်ပါသည်။"
+            },
+            "contact_form_name": {
+                "zh-CN": "您的姓名:",
+                "my": "သင့်အမည်:"
+            },
+            "contact_form_name_placeholder": {
+                "zh-CN": "请输入您的姓名",
+                "my": "သင့်အမည်ကို ထည့်သွင်းပါ"
+            },
+            "contact_form_email": {
+                "zh-CN": "您的邮箱:",
+                "my": "သင့်အီးမေးလ်:"
+            },
+            "contact_form_email_placeholder": {
+                "zh-CN": "请输入您的邮箱",
+                "my": "သင့်အီးမေးလ်ကို ထည့်သွင်းပါ"
+            },
+            "contact_form_message": {
+                "zh-CN": "您的留言:",
+                "my": "သင့်မက်ဆေ့ဂျ်:"
+            },
+            "contact_form_message_placeholder": {
+                "zh-CN": "请输入您的留言内容",
+                "my": "သင့်မက်ဆေ့ဂျ်ကို ထည့်သွင်းပါ"
+            },
+            "contact_form_send": {
+                "zh-CN": "发送邮件",
+                "my": "အီးမေးလ် ပေးပို့ရန်"
+            },
+            "contact_address": {
+                "zh-CN": "地址：缅甸腊戌",
+                "my": "လိပ်စာ- မြန်မာနိုင်ငံ၊ လားရှိုး"
+            },
+            "contact_service_region": {
+                "zh-CN": "主要服务区域：缅甸北部地区",
+                "my": "အဓိကဝန်ဆောင်မှုဒေသ- မြန်မာနိုင်ငံမြောက်ပိုင်းဒေသ"
+            },
+            "contact_hours": {
+                "zh-CN": "营业时间：周一至周五 9:00 - 18:00",
+                "my": "ဖွင့်ချိန်- တနင်္လာနေ့မှ သောကြာနေ့ နံနက် ၉:၀၀ - ညနေ ၆:၀၀"
+            },
+            "footer_company_name": {
+                "zh-CN": "卓越建材",
+                "my": "ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်း"
+            },
+            "footer_company_desc": {
+                "zh-CN": "我们致力于提供高品质、环保的建筑砖材，为您的项目提供坚实可靠的基础。",
+                "my": "ကျွန်ုပ်တို့သည် အရည်အသွေးမြင့်မားပြီး သဘာဝပတ်ဝန်းကျင်နှင့် လိုက်ဖက်သော အုတ်ပစ္စည်းများကို ပံ့ပိုးပေးရန် ကတိပြုပြီး သင်၏စီမံကိန်းအတွက် ခိုင်မာပြီး စိတ်ချရသော အခြေခံအုတ်မြစ်ကို ပေးအပ်ပါသည်။"
+            },
+            "footer_quick_links_title": {
+                "zh-CN": "快速链接",
+                "my": "အမြန်လင့်ခ်များ"
+            },
+            "footer_follow_us_title": {
+                "zh-CN": "关注我们",
+                "my": "ကျွန်ုပ်တို့ကို Follow လုပ်ပါ"
+            },
+            "footer_policies_title": {
+                "zh-CN": "声明与政策",
+                "my": "ကြေညာချက်နှင့် မူဝါဒများ"
+            },
+            "footer_privacy_policy": {
+                "zh-CN": "隐私政策",
+                "my": "ကိုယ်ရေးကိုယ်တာမူဝါဒ"
+            },
+            "footer_terms_of_service": {
+                "zh-CN": "服务条款",
+                "my": "ဝန်ဆောင်မှုစည်းမျဉ်းစည်းကမ်းများ"
+            },
+            "footer_legal_statement": {
+                "zh-CN": "法律声明",
+                "my": "ဥပဒေရေးရာကြေညာချက်"
+            },
+            "footer_disclaimer": {
+                "zh-CN": "本网站所有内容仅供参考，不构成任何形式的承诺或建议。用户应自行寻求专业的法律或商业建议。最终解释权归卓越建材有限公司所有。",
+                "my": "ဤဝက်ဘ်ဆိုက်ပါ အကြောင်းအရာများအားလုံးသည် ကိုးကားရန်အတွက်သာဖြစ်ပြီး၊ မည်သည့်ကတိကဝတ် သို့မဟုတ် အကြံပြုချက်မျှ မပါဝင်ပါ။ အသုံးပြုသူများသည် ပရော်ဖက်ရှင်နယ် ဥပဒေရေးရာ သို့မဟုတ် စီးပွားရေး အကြံဉာဏ်များကို ကိုယ်တိုင်ရှာဖွေသင့်ပါသည်။ နောက်ဆုံးအဓိပ္ပာယ်ဖွင့်ဆိုပိုင်ခွင့်ကို ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်းကုမ္ပဏီလီမိတက်မှ ပိုင်ဆိုင်ပါသည်။"
+            },
+            "footer_copyright": {
+                "zh-CN": "&copy; 2025 卓越建材有限公司. 版权所有.",
+                "my": "&copy; 2025 ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်းကုမ္ပဏီလီမိတက်. မူပိုင်ခွင့်များအားလုံးကို ထိန်းသိမ်းထားပါသည်။"
+            },
+            // Product detail translations for modal
+            "product_detail_environmental_title": {
+                "zh-CN": "环保特性",
+                "my": "သဘာဝပတ်ဝန်းကျင်ထိန်းသိမ်းမှုဆိုင်ရာအင်္ဂါရပ်များ"
+            },
+            "product_detail_quality_title": {
+                "zh-CN": "卓越质量",
+                "my": "ထူးချွန်အရည်အသွေး"
+            },
+            "product_detail_cost_title": {
+                "zh-CN": "成本效益",
+                "my": "ကုန်ကျစရိတ်ထိရောက်မှု"
+            },
+            "product_detail_advantages_title": {
+                "zh-CN": "优势与对比",
+                "my": "အားသာချက်များနှင့် နှိုင်းယှဉ်ချက်များ"
+            },
+            "product1_environmental": {
+                "zh-CN": "采用本地粘土和沙子，生产过程优化减少能源消耗和废弃物。可回收利用。",
+                "my": "ဒေသတွင်းရွှံ့စေးနှင့်သဲကိုအသုံးပြုပြီး စွမ်းအင်သုံးစွဲမှုနှင့် စွန့်ပစ်ပစ္စည်းများကိုလျှော့ချရန် ထုတ်လုပ်မှုလုပ်ငန်းစဉ်ကို အကောင်းဆုံးဖြစ်အောင်ပြုလုပ်ထားသည်။ ပြန်လည်အသုံးပြုနိုင်သည်။"
+            },
+            "product1_quality": {
+                "zh-CN": "密度高，抗压强度卓越，经久耐用。符合国家建筑材料标准。",
+                "my": "သိပ်သည်းဆမြင့်မားပြီး ဖိအားခံနိုင်ရည်အားကောင်းမွန်ကာ ကြာရှည်ခံသည်။ နိုင်ငံတော်ဆောက်လုပ်ရေးပစ္စည်းစံနှုန်းများနှင့် ကိုက်ညီသည်။"
+            },
+            "product1_cost": {
+                "zh-CN": "生产成本相对较低，采购成本经济。长期维护成本低。",
+                "my": "ထုတ်လုပ်မှုစရိတ်နှင့်ဝယ်ယူမှုစရိတ်သည် နှိုင်းယှဉ်ပါက နည်းပါးသည်။ ရေရှည်ထိန်းသိမ်းမှုစရိတ် နည်းပါးသည်။"
+            },
+            "product1_advantages": {
+                "zh-CN": "<p><b>优势</b>: 极佳的承重能力，隔音隔热性能好，适用于多种结构。</p><p><b>对比</b>: 相较于轻质砖，虽然自重较大，但在承重和稳定性方面表现更优。</p>",
+                "my": "<p><b>အားသာချက်များ</b>: ဝန်ဆောင်နိုင်စွမ်းအလွန်ကောင်းမွန်ပြီး အသံနှင့်အပူကာကွယ်မှုလည်းကောင်းမွန်သည်။ တည်ဆောက်ပုံအမျိုးမျိုးအတွက် သင့်လျော်သည်။</p><p><b>နှိုင်းယှဉ်ချက်</b>: အလေးချိန်ပေါ့ပါးသော အုတ်များနှင့်နှိုင်းယှဉ်ပါက အလေးချိန်ပိုများသော်လည်း ဝန်ဆောင်နိုင်စွမ်းနှင့် တည်ငြိမ်မှုတွင် ပိုမိုကောင်းမွန်သည်။</p>"
+            },
+            "product2_environmental": {
+                "zh-CN": "使用工业废料（如粉煤灰、炉渣）制造，大幅减少自然资源消耗和碳排放。生产过程能耗低。",
+                "my": "စက်မှုစွန့်ပစ်ပစ္စည်း (ဥပမာ- ပြာမှုန့်၊ သံရည်အကြွင်းအကျန်) များဖြင့် ထုတ်လုပ်ထား၍ သဘာဝရင်းမြစ်များ သုံးစွဲမှုကို လျှော့ချပြီး ကာဗွန်ထုတ်လွှတ်မှုကို သိသိသာသာ လျှော့ချသည်။ ထုတ်လုပ်မှုတွင် စွမ်းအင်သုံးစွဲမှု နည်းပါးသည်။"
+            },
+            "product2_quality": {
+                "zh-CN": "重量轻但强度高，具有良好的抗震性能。尺寸精度高，表面平整。",
+                "my": "အလေးချိန်ပေါ့ပါးသော်လည်း ခိုင်ခံ့မှုမြင့်မားပြီး မြေငလျင်ဒဏ်ခံနိုင်သော စွမ်းဆောင်ရည်ကောင်းမွန်သည်။ တိကျသောအရွယ်အစားနှင့် ပြေပြစ်သောမျက်နှာပြင်ရှိသည်။"
+            },
+            "product2_cost": {
+                "zh-CN": "降低了运输和施工成本，因其轻质减少了对基础的要求，从而节省整体项目开支。",
+                "my": "သယ်ယူပို့ဆောင်ရေးနှင့် တည်ဆောက်မှုစရိတ်များကို လျှော့ချပေးသည်။ အလေးချိန်ပေါ့ပါးသောကြောင့် အခြေခံအုတ်မြစ်အတွက် လိုအပ်ချက်နည်းပါးပြီး စီမံကိန်း၏ စုစုပေါင်းကုန်ကျစရိတ်ကို သက်သာစေသည်။"
+            },
+            "product2_advantages": {
+                "zh-CN": "<p><b>优势</b>: 显著的节能保温效果，施工速度快，有效降低建筑自重。</p><p><b>对比</b>: 比实心砖更轻，减轻结构负担；中空的结构提供了更好的隔热隔音性能，但可能不适合极端承重需求。</p>",
+                "my": "<p><b>အားသာချက်များ</b>: စွမ်းအင်ချွေတာပြီး အပူကာကွယ်မှု သိသိသာသာ ကောင်းမွန်သည်။ တည်ဆောက်မှုအလုပ်နှုန်း မြန်ဆန်ပြီး အဆောက်အအုံ၏ ကိုယ်ပိုင်အလေးချိန်ကို ထိထိရောက်ရောက် လျှော့ချပေးသည်။</p><p><b>နှိုင်းယှဉ်ချက်</b>: အမာခံအုတ်များထက် ပိုမိုပေါ့ပါးပြီး တည်ဆောက်ပုံဝန်ကို လျှော့ချပေးသည်။ အုတ်ပေါက်တည်ဆောက်ပုံက ပိုမိုကောင်းမွန်သော အပူနှင့်အသံကာကွယ်မှုကို ပေးစွမ်းသော်လည်း အလွန်အမင်း ဝန်ဆောင်နိုင်ရန် မသင့်လျော်ပေ။</p>"
+            },
+            "product3_environmental": {
+                "zh-CN": "采用天然矿物颜料，无有害物质释放。部分产品可利用再生材料制成。",
+                "my": "သဘာဝသတ္တုဓာတ်အရောင်များကိုအသုံးပြုပြီး အန္တရာယ်ရှိသောပစ္စည်းများမပါဝင်ပါ။ အချို့ထုတ်ကုန်များကို ပြန်လည်အသုံးပြုနိုင်သောပစ္စည်းများဖြင့် ပြုလုပ်ထားသည်။"
+            },
+            "product3_quality": {
+                "zh-CN": "色彩持久，不易褪色。表面耐磨、耐腐蚀，易于清洁。",
+                "my": "အရောင်များကြာရှည်ခံပြီး မပြောင်းလဲပါ။ မျက်နှာပြင်ပွန်းပဲ့ခံနိုင်ရည်ရှိပြီး ချေးမတက်ခြင်း၊ သန့်ရှင်းရလွယ်ကူခြင်းတို့ရှိသည်။"
+            },
+            "product3_cost": {
+                "zh-CN": "初期投入可能高于普通砖，但其装饰性和免维护特性提供了长期价值。",
+                "my": "အစောပိုင်းကုန်ကျစရိတ်သည် ရိုးရိုးအုတ်များထက်ပိုမိုများပြားနိုင်သော်လည်း အလှဆင်နိုင်မှုနှင့် ထိန်းသိမ်းစရိတ်မလိုအပ်သောကြောင့် ရေရှည်အတွက် တန်ဖိုးရှိသည်။"
+            },
+            "product3_advantages": {
+                "zh-CN": "<p><b>优势</b>: 提供丰富的纹理和色彩选择，极大地提升建筑美学价值。</p><p><b>对比</b>: 相比涂料和石材，砖的质感独特，维护成本低，且更具自然美。</p>",
+                "my": "<p><b>အားသာချက်များ</b>: ပုံစံမျိုးစုံနှင့် အရောင်မျိုးစုံကို ရွေးချယ်နိုင်ပြီး အဆောက်အအုံ၏ဗိသုကာအလှကို မြှင့်တင်ပေးသည်။</p><p><b>နှိုင်းယှဉ်ချက်</b>: ဆေးသုတ်ခြင်းနှင့် ကျောက်တုံးများနှင့်နှိုင်းယှဉ်ပါက အုတ်၏ဖွဲ့စည်းပုံသည် ထူးခြားပြီး ထိန်းသိမ်းစရိတ်နည်းကာ သဘာဝအလှပိုရှိသည်။</p>"
+            },
+            "product4_environmental": {
+                "zh-CN": "可采用再生混凝土或废弃陶瓷材料制成，实现资源循环利用。",
+                "my": "ပြန်လည်အသုံးပြုနိုင်သော ကွန်ကရစ် သို့မဟုတ် စွန့်ပစ်ကြွေထည်ပစ္စည်းများဖြင့် ပြုလုပ်ထား၍ သယံဇာတများကို ပြန်လည်အသုံးပြုခြင်းကို အကောင်အထည်ဖော်သည်။"
+            },
+            "product4_quality": {
+                "zh-CN": "优异的抗压和抗冻融性能，表面防滑耐磨。颜色均匀稳定。",
+                "my": "ကောင်းမွန်သော ဖိအားခံနိုင်ရည်နှင့် ရေခဲဒဏ်ခံနိုင်ရည်ရှိပြီး မျက်နှာပြင်က ချောမတက်ခြင်း၊ ပွန်းပဲ့ခံနိုင်ခြင်းတို့ရှိသည်။ အရောင်ညီညာပြီး တည်ငြိမ်သည်။"
+            },
+            "product4_cost": {
+                "zh-CN": "铺设成本适中，易于修复和更换，减少长期维护费用。",
+                "my": "ခင်းကျင်းမှုကုန်ကျစရိတ်မှာ သင့်တင့်ပြီး ပြုပြင်ခြင်းနှင့်အစားထိုးခြင်းတို့အတွက် လွယ်ကူသည်။ ရေရှည်ထိန်းသိမ်းမှုစရိတ်ကို လျှော့ချပေးသည်။"
+            },
+            "product4_advantages": {
+                "zh-CN": "<p><b>优势</b>: 美观耐用，透水性好的铺路砖有助于城市雨水管理，减少地表径流。</p><p><b>对比</b>: 相比沥青和混凝土路面，具有更好的透水性和艺术感，且易于局部维护。</p>",
+                "my": "<p><b>အားသာချက်များ</b>: လှပပြီး ကြာရှည်ခံသည်။ ရေစိမ့်ဝင်မှုကောင်းမွန်သောအုတ်များသည် မြို့ပြမိုးရေစီမံခန့်ခွဲမှုအတွက် အထောက်အကူဖြစ်ပြီး မျက်နှာပြင်စီးဆင်းမှုကို လျှော့ချပေးသည်။</p><p><b>နှိုင်းယှဉ်ချက်</b>: ကတ္တရာနှင့် ကွန်ကရစ်လမ်းများထက် ရေစိမ့်ဝင်မှုနှင့် အနုပညာခံစားမှု ပိုမိုကောင်းမွန်ပြီး အစိတ်အပိုင်းအလိုက် ပြုပြင်ထိန်းသိမ်းရလွယ်ကူသည်။</p>"
+            },
+            "product5_environmental": {
+                "zh-CN": "生产过程符合环保标准，但其应用场景（高温工业）决定了其特性而非环保为主。",
+                "my": "ထုတ်လုပ်မှုလုပ်ငန်းစဉ်သည် သဘာဝပတ်ဝန်းကျင်စံနှုန်းများနှင့် ကိုက်ညီသော်လည်း ၎င်း၏အသုံးပြုမှု (အပူချိန်မြင့်မားသောစက်မှုလုပ်ငန်း) က ၎င်း၏အင်္ဂါရပ်ကိုသာဆုံးဖြတ်သည်။"
+            },
+            "product5_quality": {
+                "zh-CN": "极高的耐火度和热稳定性，抗热震性好，抗侵蚀能力强。",
+                "my": "အလွန်မြင့်မားသော မီးခံနိုင်ရည်နှင့် အပူတည်ငြိမ်မှုရှိပြီး အပူဒဏ်ကိုခံနိုင်ရည်ရှိကာ တိုက်စားခြင်းဒဏ်ကိုလည်း ကောင်းစွာခံနိုင်သည်။"
+            },
+            "product5_cost": {
+                "zh-CN": "由于专业原材料和生产工艺，成本较高，但其在高温环境中的寿命和安全性使其成为必要的投资。",
+                "my": "ပရော်ဖက်ရှင်နယ်ကုန်ကြမ်းများနှင့် ထုတ်လုပ်မှုလုပ်ငန်းစဉ်များကြောင့် ကုန်ကျစရိတ်မြင့်မားသည်။ သို့သော် အပူချိန်မြင့်မားသောပတ်ဝန်းကျင်တွင် ၎င်း၏သက်တမ်းနှင့် ဘေးကင်းမှုကြောင့် မရှိမဖြစ်လိုအပ်သော ရင်းနှီးမြှုပ်နှံမှုဖြစ်သည်။"
+            },
+            "product5_advantages": {
+                "zh-CN": "<p><b>优势</b>: 在极端高温环境下保持结构完整性，保障工业生产安全。</p><p><b>对比</b>: 专用于高温环境，普通砖无法替代其性能。</p>",
+                "my": "<p><b>အားသာချက်များ</b>: အလွန်အမင်းပူပြင်းသောပတ်ဝန်းကျင်တွင် ဖွဲ့စည်းပုံကို မပျက်စီးစေဘဲ စက်မှုထုတ်လုပ်ရေး၏ ဘေးကင်းမှုကို အာမခံသည်။</p><p><b>နှိုင်းယှဉ်ချက်</b>: အပူချိန်မြင့်မားသောပတ်ဝန်းကျင်များအတွက် အထူးထုတ်လုပ်ထားပြီး ရိုးရိုးအုတ်များသည် ၎င်း၏စွမ်းဆောင်ရည်ကို အစားထိုး၍မရပါ။</p>"
+            },
+            "product6_environmental": {
+                "zh-CN": "通常采用环保材料生产，如再生骨料。免砂浆铺设减少了水泥用量。",
+                "my": "ပုံမှန်အားဖြင့် သဘာဝပတ်ဝန်းကျင်နှင့် လိုက်လျောညီထွေရှိသော ပစ္စည်းများဖြစ်သည့် ပြန်လည်အသုံးပြုနိုင်သော aggregate များကို အသုံးပြု၍ ထုတ်လုပ်ထားသည်။ ဘိလပ်မြေမပါဘဲ ခင်းကျင်းခြင်းက ဘိလပ်မြေသုံးစွဲမှုကို လျှော့ချပေးသည်။"
+            },
+            "product6_quality": {
+                "zh-CN": "独特的联锁结构使其铺设后稳定性好，不易位移。抗压强度高。",
+                "my": "ထူးခြားသောဆက်စပ်တည်ဆောက်ပုံကြောင့် ခင်းကျင်းပြီးနောက် တည်ငြိမ်မှုကောင်းမွန်ပြီး ရွေ့လျားရန်မလွယ်ကူပါ။ ဖိအားခံနိုင်ရည် မြင့်မားသည်။"
+            },
+            "product6_cost": {
+                "zh-CN": "无需砂浆，显著降低施工成本和时间。易于安装和拆卸。",
+                "my": "ဘိလပ်မြေမလိုဘဲ တည်ဆောက်မှုကုန်ကျစရိတ်နှင့် အချိန်ကို သိသိသာသာလျှော့ချပေးသည်။ တပ်ဆင်ရန်နှင့် ဖြုတ်ရန်လွယ်ကူသည်။"
+            },
+            "product6_advantages": {
+                "zh-CN": "<p><b>优势</b>: 施工快捷，可重复利用，透水性好，适合需要快速铺设和灵活拆卸的场合。</p><p><b>对比</b>: 比传统铺路砖更易于安装，且对基础要求相对较低。</p>",
+                "my": "<p><b>အားသာချက်များ</b>: တည်ဆောက်မှုမြန်ဆန်ပြီး ပြန်လည်အသုံးပြုနိုင်သည်၊ ရေစိမ့်ဝင်မှုကောင်းမွန်သည်။ လျင်မြန်စွာခင်းကျင်းရန်နှင့် လွယ်ကူစွာဖြုတ်တပ်ရန် လိုအပ်သောနေရာများအတွက် သင့်လျော်သည်။</p><p><b>နှိုင်းယှဉ်ချက်</b>: ရိုးရာလမ်းခင်းအုတ်များထက် တပ်ဆင်ရပိုမိုလွယ်ကူပြီး အခြေခံအုတ်မြစ်လိုအပ်ချက်လည်း နှိုင်းယှဉ်ပါက နည်းပါးသည်။</p>"
+            },
+            // New translations for contact form alerts
+            "contact_form_fill_all": {
+                "zh-CN": "请填写所有联系信息！",
+                "my": "ဆက်သွယ်ရန်အချက်အလက်အားလုံးကို ဖြည့်သွင်းပါ။"
+            },
+            "contact_form_email_subject": {
+                "zh-CN": "来自卓越建材网站的咨询 / Inquiry from Excellent Building Materials Website",
+                "my": "ထူးချွန်ဆောက်လုပ်ရေးပစ္စည်းဝက်ဘ်ဆိုက်မှ မေးမြန်းချက် / Inquiry from Excellent Building Materials Website"
+            }
+        };
+
+        // Function to set language
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[key] && translations[key][lang]) {
+                    element.innerHTML = translations[key][lang];
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[key] && translations[key][lang]) {
+                    element.placeholder = translations[key][lang];
+                }
+            });
+
+            // Update page title
+            document.title = translations["page_title"][lang];
+        }
+
+        // Detect browser language and set content
+        let userLang = (navigator.language || navigator.userLanguage).split('-')[0]; // 'en', 'zh', 'my'
+        let targetLang = 'my'; // Default to Burmese
+
+        if (userLang === 'zh') {
+            targetLang = 'zh-CN'; // Use Chinese if browser is Chinese
+        } else if (userLang === 'my') {
+            targetLang = 'my'; // Use Burmese if browser is Burmese
+        }
+        // For other languages, it defaults to 'my' (Burmese)
+
+        setLanguage(targetLang);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            const targetId = anchor.getAttribute('href');
+            // Only attach event listener if targetId is not just '#' and not a tel or mailto link
+            if (targetId && targetId !== '#' && !targetId.startsWith('tel:') && !targetId.startsWith('mailto:')) {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('header button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Parallax effect for Hero Section background
+        const heroParallaxBg = document.querySelector('.hero-parallax-bg');
+
+        window.addEventListener('scroll', () => {
+            if (heroParallaxBg) {
+                // Adjust the multiplier for stronger/weaker parallax effect
+                const scrollPosition = window.pageYOffset;
+                heroParallaxBg.style.transform = `translateY(-${scrollPosition * 0.3}px)`;
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver((entries, observerInstance) => { // Renamed observer to observerInstance to avoid conflict
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observerInstance.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, { // Corrected syntax here: comma after the callback function, then the options object
+            root: null, /* viewport */
+            threshold: 0.1 /* trigger when 10% of element is visible */
+        }); // Closing parenthesis for IntersectionObserver constructor
+
+        animateOnScrollElements.forEach(element => {
+            observer.observe(element);
+        });
+
+
+        // Gemini API Integration for Intelligent Advisor
+        const getRecommendationBtn = document.getElementById('get-recommendation-btn');
+        const projectTypeInput = document.getElementById('project-type');
+        const projectSizeInput = document.getElementById('project-size');
+        const projectDescriptionInput = document.getElementById('project-description');
+        const recommendationOutput = document.getElementById('recommendation-output');
+        const recommendationContent = document.getElementById('recommendation-content');
+        const spinner = document.getElementById('spinner');
+        const buttonText = document.getElementById('button-text');
+
+        getRecommendationBtn.addEventListener('click', async () => {
+            const projectType = projectTypeInput.value;
+            const projectSize = projectSizeInput.value;
+            const promptDescription = projectDescriptionInput.value.trim();
+
+            if (!projectType || !projectSize || !promptDescription) {
+                recommendationContent.innerHTML = `<p class="text-amber-600">${translations["error_empty_prompt"][targetLang]}</p>`; // Adjusted text color
+                recommendationOutput.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading spinner
+            buttonText.textContent = translations["loading_text"][targetLang];
+            spinner.classList.remove('hidden');
+            getRecommendationBtn.disabled = true;
+            recommendationOutput.classList.add('hidden'); // Hide previous output
+            recommendationContent.innerHTML = ''; // Clear previous content
+
+            try {
+                let chatHistory = [];
+                // Add context about the company's products and service region in both Chinese and Burmese for the LLM
+                const productContext_zh = `
+                我们的产品主要有：
+                1. **液压实心标砖**: 传统经典，强度高，适用于承重墙体和外墙装饰，提供优异的隔热和隔音效果。
+                2. **环保空心砖**: 轻质高强，节能环保，有效降低建筑自重，提高施工效率，是现代建筑的理想选择。
+                3. **装饰面砖**: 色彩丰富，纹理独特，为建筑外立面增添艺术美感，兼具耐候性和易清洁特性。
+                4. **铺路砖**: 高强度、耐磨损，适用于人行道、广场和园林道路，提供多种颜色和图案选择。
+                5. **耐火砖**: 耐高温、抗侵蚀，广泛应用于炉窑、烟囱等高温工业建筑，确保结构安全。
+                6. **联锁砖**: 独特联锁设计，施工简便快捷，无需砂浆即可铺设，适用于各种地面铺设。
+
+                我们致力于为全缅甸客户提供服务，主要服务于缅甸北部地区。
+
+                请根据用户的项目类型、项目规模和项目描述，结合上述产品信息，为他们推荐最适合的砖材，并简要说明理由。如果描述不够清晰，可以提出一个简短的后续问题。请以友好和专业的语气回答。
+                `;
+
+                const productContext_my = `
+                ကျွန်ုပ်တို့၏ထုတ်ကုန်များမှာ-
+                1. **ဟိုက်ဒရောလစ် အမာခံအုတ်**: ရိုးရာအုတ်နီခဲသည် ခိုင်ခံ့မှုမြင့်မားပြီး နံရံတည်ဆောက်ရန်နှင့် ပြင်ပအလှဆင်ရန်အတွက် သင့်လျော်ပါသည်။ အပူနှင့် အသံကို ကောင်းမွန်စွာ ကာကွယ်ပေးပါသည်။
+                2. **သဘာဝပတ်ဝန်းကျင်ထိန်းသိမ်းရေး အုတ်ပေါက်**: အလေးချိန်ပေါ့ပါး၊ ခိုင်ခံ့မှုမြင့်မား၊ စွမ်းအင်ချွေတာပြီး သဘာဝပတ်ဝန်းကျင်နှင့် လိုက်ဖက်သည်။ ဆောက်လုပ်ရေးအလေးချိန်ကို လျှော့ချကာ တည်ဆောက်မှုအလုပ်နှုန်းကို မြှင့်တင်ပေးသည်။ ခေတ်မီဆောက်လုပ်ရေးအတွက် အကောင်းဆုံးရွေးချယ်မှုဖြစ်သည်။
+                3. **လမ်းခင်းရောင်စုံအုတ်**: အရောင်အသွေးစုံလင်ပြီး ထူးခြားသောဒီဇိုင်းများပါရှိသည်။ အဆောက်အအုံပြင်ပမျက်နှာစာကို အနုပညာဆန်ဆန် လှပစေပြီး ရာသီဥတုဒဏ်ခံနိုင်ခြင်း၊ သန့်ရှင်းရလွယ်ကူခြင်း စသည့်အင်္ဂါရပ်များ ပါရှိသည်။
+                4. **လမ်းခင်းအုတ်**: ခိုင်ခံ့မှုမြင့်မားပြီး ပွန်းပဲ့ခံနိုင်ရည်ရှိသည်။ လူသွားလမ်း၊ ရင်ပြင်နှင့် ပန်းခြံလမ်းများအတွက် သင့်လျော်ပြီး အရောင်နှင့် ဒီဇိုင်းမျိုးစုံဖြင့် ရရှိနိုင်သည်။
+                5. **မီးခံအုတ်**: အပူချိန်မြင့်မားမှုနှင့် တိုက်စားခြင်းဒဏ်ကို ခံနိုင်ရည်ရှိသည်။ မီးဖိုများ၊ မီးခိုးခေါင်းတိုင်များ ကဲ့သို့သော အပူချိန်မြင့်မားသည့် စက်မှုလုပ်ငန်းသုံး အဆောက်အအုံများတွင် ကျယ်ပြန့်စွာ အသုံးပြုပြီး တည်ဆောက်ပုံ ဘေးကင်းလုံခြုံမှုကို သေချာစေပါသည်။
+                6. **ဆက်စပ်အုတ်**: ထူးခြားသော ဆက်စပ်ဒီဇိုင်းဖြင့် တည်ဆောက်ရလွယ်ကူပြီး မြန်ဆန်သည်။ ဘိလပ်မြေမလိုဘဲ ခင်းကျင်းနိုင်ပြီး မြေပြင်ခင်းခြင်းအမျိုးမျိုးအတွက် သင့်လျော်ပါသည်။
+
+                ကျွန်ုပ်တို့သည် မြန်မာနိုင်ငံတစ်ဝှမ်းလုံးရှိ ဖောက်သည်များအား ဝန်ဆောင်မှုပေးရန် ကတိပြုပြီး၊ အဓိကအားဖြင့် မြန်မာနိုင်ငံမြောက်ပိုင်းဒေသတွင် ဝန်ဆောင်မှုပေးပါသည်။
+                
+                အသုံးပြုသူ၏စီမံကိန်းအမျိုးအစား၊ စီမံကိန်းအရွယ်အစားနှင့် စီမံကိန်းအကြောင်းအရာအလိုက်，结合上述产品信息，为他们推荐最适合的砖材，并简要说明理由。如果描述不够清晰，可以提出一个简短的后续问题。请以友好和专业的语气回答。
+                `;
+
+                const fullPrompt = `
+                用户项目信息 / User Project Information:
+                项目类型 / Project Type: ${projectType}
+                项目规模 / Project Size: ${projectSize}
+                项目描述 / Project Description: ${promptDescription}
+
+                ${productContext_zh}
+                ${productContext_my}
+                `;
+
+                chatHistory.push({ role: "user", parts: [{ text: fullPrompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide this
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    recommendationContent.innerHTML = marked.parse(text); // Use marked.js for markdown rendering
+                } else {
+                    recommendationContent.innerHTML = `<p class="text-amber-600">${translations["error_llm_failed"][targetLang]}</p>`; // Adjusted text color
+                }
+            } catch (error) {
+                console.error('Error fetching recommendation:', error);
+                recommendationContent.innerHTML = `<p class="text-amber-600">${translations["error_network"][targetLang]}</p>`; // Adjusted text color
+            } finally {
+                // Hide spinner and enable button
+                spinner.classList.add('hidden');
+                buttonText.textContent = translations["advisor_button"][targetLang];
+                getRecommendationBtn.disabled = false;
+                recommendationOutput.classList.remove('hidden'); // Show output
+            }
+        });
+
+        // Email Form Logic
+        const sendEmailBtn = document.getElementById('send-email-btn');
+        const emailFormContainer = document.getElementById('email-form-container');
+        const submitEmailBtn = document.getElementById('submit-email-btn');
+        const contactNameInput = document.getElementById('contact-name');
+        const contactEmailInput = document.getElementById('contact-email');
+        const contactMessageInput = document.getElementById('contact-message');
+
+        sendEmailBtn.addEventListener('click', () => {
+            emailFormContainer.classList.toggle('hidden');
+        });
+
+        submitEmailBtn.addEventListener('click', () => {
+            const name = contactNameInput.value.trim();
+            const email = contactEmailInput.value.trim();
+            const message = contactMessageInput.value.trim();
+
+            if (!name || !email || !message) {
+                alert(translations["contact_form_fill_all"][targetLang]); // Using alert as a temporary visual cue for required fields
+                return;
+            }
+
+            const subject = encodeURIComponent(translations["contact_form_email_subject"][targetLang]);
+            const body = encodeURIComponent(`
+${translations["contact_form_name"][targetLang]}: ${name}
+${translations["contact_form_email"][targetLang]}: ${email}
+${translations["contact_form_message"][targetLang]}:
+${message}
+`);
+            
+            // This will open the user's default email client
+            window.location.href = `mailto:syh438869@gmail.com?subject=${subject}&body=${body}`;
+
+            // Optionally, clear the form after attempting to send
+            contactNameInput.value = '';
+            contactEmailInput.value = '';
+            contactMessageInput.value = '';
+            emailFormContainer.classList.add('hidden');
+        });
+
+        // Product Modal Logic
+        const productModal = document.getElementById('product-modal');
+        const closeModalBtn = productModal.querySelector('.close-button');
+        const modalProductTitle = document.getElementById('modal-product-title');
+        const modalProductDetails = document.getElementById('modal-product-details');
+
+        const productDetailsData = {
+            "product1": {
+                title_key: "product1_title",
+                environmental_key: "product1_environmental",
+                quality_key: "product1_quality",
+                cost_key: "product1_cost",
+                advantages_key: "product1_advantages"
+            },
+            "product2": {
+                title_key: "product2_title",
+                environmental_key: "product2_environmental",
+                quality_key: "product2_quality",
+                cost_key: "product2_cost",
+                advantages_key: "product2_advantages"
+            },
+            "product3": {
+                title_key: "product3_title",
+                environmental_key: "product3_environmental",
+                quality_key: "product3_quality",
+                cost_key: "product3_cost",
+                advantages_key: "product3_advantages"
+            },
+            "product4": {
+                title_key: "product4_title",
+                environmental_key: "product4_environmental",
+                quality_key: "product4_quality",
+                cost_key: "product4_cost",
+                advantages_key: "product4_advantages"
+            },
+            "product5": {
+                title_key: "product5_title",
+                environmental_key: "product5_environmental",
+                quality_key: "product5_quality",
+                cost_key: "product5_cost",
+                advantages_key: "product5_advantages"
+            },
+            "product6": {
+                title_key: "product6_title",
+                environmental_key: "product6_environmental",
+                quality_key: "product6_quality",
+                cost_key: "product6_cost",
+                advantages_key: "product6_advantages"
+            }
+        };
+
+        document.querySelectorAll('.open-modal-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const data = productDetailsData[productId];
+
+                if (data) {
+                    modalProductTitle.textContent = translations[data.title_key][targetLang];
+                    modalProductDetails.innerHTML = `
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-2">${translations["product_detail_environmental_title"][targetLang]}</h4>
+                            <p class="text-gray-600">${translations[data.environmental_key][targetLang]}</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-2">${translations["product_detail_quality_title"][targetLang]}</h4>
+                            <p class="text-gray-600">${translations[data.quality_key][targetLang]}</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-2">${translations["product_detail_cost_title"][targetLang]}</h4>
+                            <p class="text-gray-600">${translations[data.cost_key][targetLang]}</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-2">${translations["product_detail_advantages_title"][targetLang]}</h4>
+                            <p class="text-gray-600">${translations[data.advantages_key][targetLang]}</p>
+                        </div>
+                    `;
+                    productModal.style.display = 'flex'; // Use flex to center
+                }
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            productModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == productModal) {
+                productModal.style.display = 'none';
+            }
+        });
+    </script>
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>
